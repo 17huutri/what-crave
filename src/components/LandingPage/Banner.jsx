@@ -9,9 +9,15 @@ const Banner = () => {
         navigate('/menu');
     };
     return (
-        <div>
-            <video className='video-bg w-full h-screen absolute top-0 -z-10 object-cover' src={videoBanner} autoPlay muted loop></video>
-            <div className='px-16 py-20 lg:py-96 ml-8 text-white lg:text-left text-center'>
+        <div className="relative h-screen overflow-hidden">
+            <video
+                className="absolute top-0 left-0 w-full h-full object-cover"
+                src={videoBanner}
+                autoPlay
+                muted
+                loop
+            />
+            <div className="relative z-10 px-16 py-20 lg:py-96 ml-8 text-white lg:text-left text-center">
                 <h1 className='text-5xl lg:text-7xl leading-snug  mb-5 font-beVn italic  '>Sự Lựa Chọn Hoàn Hảo</h1>
                 <p className='text-gray-100 lg:w-3/5 mx-auto lg:mx-0 font-beVn'>Khám phá món ăn vặt ngon lành và những khoảnh khắc khó quên tại cửa hàng thân thiện của chúng tôi.</p>
                 <p className='text-gray-100 lg:w-3/5 mx-auto lg:mx-0 font-beVn'>Mỏng manh, giòn tan, bánh tráng có thể được ăn độc lập hoặc kết hợp cùng các gia vị. Sự kết hợp này mang đến những hương vị đậm đà, khó quên cho người thưởng thức.</p>

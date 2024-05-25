@@ -11,21 +11,21 @@ const Navbar = () => {
     }
     //navItems 
     const navItems = [
-        { path: "/", link: "Bánh tráng" },
-        { path: "/about", link: "Về Thèm" },
-        { path: "/menu", link: "Thực đơn" },
-        { path: "/blog", link: "Blog" },
-        { path: "/contact", link: "Liên hệ" },
+        { path: "/", link: "BÁNH TRÁNG" },
+        { path: "/about", link: "VỀ THÈM" },
+        { path: "/menu", link: "THỰC ĐƠN" },
+        { path: "/blog", link: "BLOG" },
+        { path: "/contact", link: "LIÊN HỆ" },
 
 
     ]
     return (
-        <header className='bg-main_color_3 text-black fixed top-0 left-0 right-0'>
+        <header className='bg-main_color_3 text-black fixed top-0 left-0 right-0 z-20'>
             <nav className='px-4 py-4 max-w-7xl mx-auto flex justify-between items-end'>
-                <a href="/" className='text-xl font-bold text-main_color_1'>Thèm <span className='text-gray-600'>gì cơ?</span></a>
+                <a href="/" className='text-xl font-bold text-main_color_1'>THÈM  <span className='text-gray-600 font-beVn font-bold'>GÌ CƠ?</span></a>
                 <ul className='md:flex gap-12 text-lg hidden'>
                     {
-                        navItems.map(({ path, link }) => <li className='text-gray-600' key={path}>
+                        navItems.map(({ path, link }) => <li className='text-gray-600 font-cabin font-semibold' key={path}>
                             <NavLink className={({ isActive, isPending }) =>
                                 isActive
                                     ? "active"
