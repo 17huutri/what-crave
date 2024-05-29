@@ -1,5 +1,5 @@
 import React from 'react'
-import videoBanner from '../../../public/assets/landing_pages/banner.mp4'
+import videoBanner from '../../assets/landing_pages/banner.mp4'
 import { useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa6'
 const Banner = () => {
