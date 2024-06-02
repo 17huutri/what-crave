@@ -18,6 +18,13 @@ import Login from "./components/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MenuStaff from "./components/Staff/MenuStaff";
 import DishDetail from "./components/Staff/DishDetail";
+import OrderList from "./components/Staff/OrderList";
+import OrderDetail from "./components/Staff/OrderDetail";
+import PaymentList from "./components/Staff/PaymentList";
+import NotFound from "./components/NotFound";
+import StatusPayment from "./components/PaymentStatus/StatusPayment";
+import Payment from "./components/Staff/Payment";
+
 
 const App = () => {
   const { isLogin, role } = useSelector((state) => state.accountReducer);
@@ -52,17 +59,32 @@ const App = () => {
             <Route path="/menu" element={<Menu />} />
             <Route path="/menu/:id" element={<DishDetail />} />
             <Route path="/blog" element={<Blog />} />
+
             <Route path="/contact" element={<Contact />} />
           </Route>
         </Route>
+
         {/* Staff Layout */}
-        <Route element={<ProtectedRoute isAllowed={isLogin && role === "staff"} redirectPath="/login" />}>
-          <Route path="/staff" element={<StaffLayout />}>
-            <Route index element={<Navigate to="/staff" />} />
-            <Route path="menu" element={<MenuStaff />} />
-            <Route path="/staff/menu/:id" element={<DishDetail />} />
-          </Route>
+
+        <Route
+          path="/staff" element={<StaffLayout redirectPath="/login" isAllowed={role === "staff"} />} >
+          <Route index element={<Navigate to="/staff/menu" />} />
+          <Route path="/staff/menu" element={<MenuStaff />} />
+
+          <Route path="/staff/orders" element={<OrderList />} />
+          <Route path="/staff/menu/:id" element={<DishDetail />} />
+          <Route path="/staff/order/:id" element={<OrderDetail />} />
+          <Route path="/staff/payments" element={<PaymentList />} />
+          <Route path="/staff/status-payment" element={<StatusPayment />} />
+          <Route path="/staff/payment" element={<Payment />} />
+
+
+
+
+
         </Route>
+        <Route path="/*" element={<NotFound />} />
+
 
 
         {/* Admin Layout */}
