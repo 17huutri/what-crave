@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getListPaymentAsync, payPaymentAsync } from '../../store/slices/paymentSlice';
+import { getListPaymentAsync } from '../../store/slices/paymentSlice';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -23,10 +23,6 @@ const PaymentList = () => {
         dispatch(getListPaymentAsync({ currentPage: pageIndex + 1 }));
     };
 
-    const handlePayment = (paymentID) => {
-        dispatch(payPaymentAsync({ paymentID }));
-    };
-
     return (
         <div className="container mx-auto px-4 py-8 text-center mt-40">
             {error && <p className="text-red-500">Error: {error}</p>}
@@ -43,7 +39,6 @@ const PaymentList = () => {
                                 <th className="border border-gray-300 p-2">SDT</th>
                                 <th className="border border-gray-300 p-2">Phương thức thanh toán</th>
                                 <th className="border border-gray-300 p-2">Trạng thái</th>
-                                <th className="border border-gray-300 p-2">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,14 +59,7 @@ const PaymentList = () => {
                                     <td className="border border-gray-300 p-2">
                                         {payment.status || '-'}
                                     </td>
-                                    <td className="border border-gray-300 p-2">
-                                        <button
-                                            onClick={() => handlePayment(payment.id)}
-                                            className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                                        >
-                                            Thanh toán
-                                        </button>
-                                    </td>
+
                                 </tr>
                             ))}
                         </tbody>

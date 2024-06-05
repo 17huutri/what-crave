@@ -1,9 +1,8 @@
-// export const APIURL = "https://themgico_net.nguyenminhhai.us/api";
-// export const BASEURL = "https://themgico_net.nguyenminhhai.us";
-export const APIURL = "http://localhost:5188/api";
-export const BASEURL = "http://localhost:5188";
+export const APIURL = "https://themgico_net.nguyenminhhai.us/api";
+export const BASEURL = "https://themgico_net.nguyenminhhai.us";
+
 
 export const ROLE =
-  "Role";
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
 export const USERNAME =
-  "Name";
+  "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";

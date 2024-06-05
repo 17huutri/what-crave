@@ -1,14 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchOrderById, updateMode } from '../../store/slices/orderSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CreateOrderDetail from './CreatOrderDetail';
+import CreateOrderDetail from './CreateOrderDetail';
 import { PacmanLoader } from 'react-spinners';
+
+const getStatusText = (status) => {
+    switch (status) {
+        case 'In Service':
+            return <span className="text-purple-500 font-semibold">Đang phục vụ</span>;
+        case 'processing':
+            return <span className="text-blue-500 font-semibold">Đang xử lý</span>;
+        case 'Preparing':
+            return <span className="text-yellow-500 font-semibold">Đang chuẩn bị</span>;
+        case 'Done':
+            return <span className="text-green-500 font-semibold">Đã hoàn thành</span>;
+        case 'cancelled':
+            return <span className="text-red-500 font-semibold">Đã hủy</span>;
+        default:
+            return status;
+    }
+};
+
 const OrderDetail = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { order, isLoading, error } = useSelector((state) => state.orders);
     const [showModal, setShowModal] = useState(false);
     const [selectedMode, setSelectedMode] = useState(null);
@@ -17,7 +36,9 @@ const OrderDetail = () => {
         dispatch(fetchOrderById(id));
     }, [dispatch, id]);
 
-
+    useEffect(() => {
+        console.log('Order updated:', order);
+    }, [order]);
 
     const handleUpdateMode = async (mode) => {
         if (!mode) {
@@ -35,42 +56,73 @@ const OrderDetail = () => {
     };
 
     if (isLoading) {
-        return <div className="flex justify-center mt-40"><PacmanLoader color='#728FCE' size={70} />
-        </div>;
-
+        return (
+            <div className="flex justify-center mt-40">
+                <PacmanLoader color='#728FCE' size={70} />
+            </div>
+        );
     }
 
     if (error) {
-        return <div className="flex justify-center mt-40"><PacmanLoader color='#728FCE' size={70} />
-        </div>;
-    }
-
-    if (!order) {
-        return <div className="flex justify-center mt-40"><PacmanLoader color='#728FCE' size={70} />
-        </div>;
-    }
-    return (
-        <div className="mt-8 py-8 px-4 md:py-12 md:px-6">
-            <h2 className="text-3xl font-semibold mb-6">Chi tiết đơn hàng #{order.id}</h2>
-
-            <div className="mb-4">
-                <p><strong>Thời gian đặt:</strong> {new Date(order.orderdate).toLocaleString()}</p>
-                <p><strong>Số bàn:</strong> {order.tablenumber}</p>
-                <p><strong>Số khách:</strong> {order.numberguest}</p>
-                <p><strong>Tổng tiền:</strong> {order.Total.toLocaleString()} đ</p>
-                <p><strong>Trạng thái:</strong> {order.status}</p>
-                <p><strong>Chế độ:</strong> {order.mode}</p>
+        return (
+            <div className="flex justify-center mt-40">
+                <p className="text-red-500">{error.message}</p>
             </div>
-            <div className="mb-4">
-                <button
-                    className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded"
-                    onClick={() => {
-                        setShowModal(true);
-                        setSelectedMode(null)
-                    }}
-                >
-                    Cập nhật chế độ
-                </button>
+        );
+    }
+
+    const handleDetailCreated = () => {
+        dispatch(fetchOrderById(id));
+    };
+
+    return (
+        <div className="mt-8 py-8 px-4 md:py-12 md:px-6 font-beVn">
+            <h2 className="text-3xl font-semibold mb-6">Chi tiết đơn hàng #{order.id}</h2>
+            <div className="mx-40 list-disc list-inside space-y-4">
+                <div className="flex justify-between">
+                    <p className="font-semibold">Thời gian đặt:</p>
+                    <p>{order.orderdate ? new Date(order.orderdate).toLocaleString() : 'N/A'}</p>
+                </div>
+                <div className="flex justify-between">
+                    <p className="font-semibold">Số bàn:</p>
+                    <p>{order.tablenumber ?? 'N/A'}</p>
+                </div>
+                <div className="flex justify-between">
+                    <p className="font-semibold">Số khách:</p>
+                    <p>{order.numberguest ?? 'N/A'}</p>
+                </div>
+                <div className="flex justify-between">
+                    <p className="font-semibold">Tổng tiền:</p>
+                    <p>{order.Total ? order.Total.toLocaleString() : 'N/A'} đ</p>
+                </div>
+                <div className="flex justify-between">
+                    <p className="font-semibold">Trạng thái:</p>
+                    <p>{order.status ?? 'N/A'}</p>
+                </div>
+                <div className="flex justify-between">
+                    <p className="font-semibold">Chế độ:</p>
+                    <p>{order.mode ?? 'N/A'}</p>
+                </div>
+            </div>
+            <div className="py-4">
+                {
+                    order.status !== 'Done' && order.mode !== 'Buffet' && (
+                        <button
+                            className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded"
+                            onClick={() => setShowModal(true)}
+                        >
+                            Cập nhật chế độ
+                        </button>
+                    )
+                }
+                {order.status !== 'Done' && (
+                    <button
+                        className="text-white bg-green-500 hover:bg-green-600 py-2 px-4 rounded ml-4"
+                        onClick={() => navigate('/staff/payment', { state: { orderID: id } })}
+                    >
+                        Tạo thanh toán
+                    </button>
+                )}
             </div>
 
             <h3 className="text-2xl font-semibold mb-4">Chi tiết sản phẩm</h3>
@@ -87,14 +139,17 @@ const OrderDetail = () => {
                 </thead>
                 <tbody className='text-center'>
                     {order.orderDetails.map((detail) => (
-                        <tr key={detail.productID}>
-                            <td className="py-2 px-4 border-b text-center">{detail.productID}</td>
-                            <td className="py-2 px-4 border-b">{detail.productName}</td>
-                            <td className="py-2 px-4 border-b text-center">{new Date(detail.orderTime).toLocaleString()}</td>
-                            <td className="py-2 px-4 border-b text-center">{detail.quantity}</td>
-                            <td className="py-2 px-4 border-b text-right">{detail.price.toLocaleString()} đ</td>
-                            <td className="py-2 px-4 border-b text-center">{detail.status}</td>
-                        </tr>
+                        detail ? (
+                            <tr key={detail.productID}>
+                                <td className="py-2 px-4 border-b">{detail.productID}</td>
+                                <td className="py-2 px-4 border-b">{detail.productName}</td>
+                                <td className="py-2 px-4 border-b text-center">{new Date(detail.orderTime).toLocaleString()}</td>
+                                <td className="py-2 px-4 border-b text-center">{detail.quantity}</td>
+                                <td className="py-2 px-4 border-b text-right">{detail.price.toLocaleString()} đ</td>
+                                <td className="py-2 px-4 border-b text-center"> {getStatusText(detail.status)}</td>
+
+                            </tr>
+                        ) : null
                     ))}
                 </tbody>
             </table>
@@ -115,8 +170,7 @@ const OrderDetail = () => {
                     </div>
                 </div>
             )}
-            <CreateOrderDetail />
-
+            {order?.status !== 'Done' && <CreateOrderDetail onDetailCreated={handleDetailCreated} />}
             <ToastContainer />
         </div>
     );

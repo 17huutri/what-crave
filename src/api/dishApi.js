@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const dishApi = {
     getCatalog() {
-        const url = "/Product/GetAll";
+        const url = "/Product/GetAllProduct";
         return axiosClient.get(url);
     },
 
