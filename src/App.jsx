@@ -20,10 +20,10 @@ import MenuStaff from "./components/Staff/MenuStaff";
 import DishDetail from "./components/Staff/DishDetail";
 import OrderList from "./components/Staff/OrderList";
 import OrderDetail from "./components/Staff/OrderDetail";
-import PaymentList from "./components/Staff/PaymentList";
 import NotFound from "./components/NotFound";
-import StatusPayment from "./components/PaymentStatus/StatusPayment";
 import Payment from "./components/Staff/Payment";
+import PaymentSuccess from "./components/PaymentStatus/PaymentSuccess";
+import PaymentFailure from "./components/PaymentStatus/PaymentFailure";
 
 
 const App = () => {
@@ -74,8 +74,9 @@ const App = () => {
           <Route path="/staff/orders" element={<OrderList />} />
           <Route path="/staff/menu/:id" element={<DishDetail />} />
           <Route path="/staff/order/:id" element={<OrderDetail />} />
-          <Route path="/staff/payments" element={<PaymentList />} />
-          <Route path="/staff/status-payment" element={<StatusPayment />} />
+          <Route path="/staff/status-success-payment" element={<PaymentSuccess />} />
+          <Route path="/staff/status-failure-payment" element={<PaymentFailure />} />
+
           <Route path="/staff/payment" element={<Payment />} />
 
 
