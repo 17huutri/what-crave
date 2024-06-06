@@ -79,7 +79,7 @@ const Footer = () => {
                 </div>
                 <div className='inline-block'>
                     <span className='text-white text-base font-bold pb-12 inline-block'>
-                        Theo dõi chúng tôi trên Instagram</span>
+                        Theo dõi chúng tôi trên Facebook</span>
                     <div className='grid gap-4 grid-cols-2'>
                         <div className='max-w-[194px] max-h-[200px] rounded-xl hover:opacity-80'>
                             <img src="https://bizweb.dktcdn.net/100/393/670/articles/lam-banh-trang-tron-can-nhung-nguyen-lieu-gi.jpg?v=1604292199063" />
