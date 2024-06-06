@@ -1,33 +1,27 @@
-import react, { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import { FaFacebook, FaXmark, FaBars, FaTiktok, FaInstagram } from 'react-icons/fa6'
-import img1 from '../../../public/assets/landing_pages/frame1.png';
 
 
 
 const Footer = () => {
 
-
-
-
     const footerPages = [
-        { path: '/', link: 'Home' },
-        { path: '/about', link: 'About' },
-        { path: '/menu', link: 'Menu' },
-        { path: '/princing', link: 'Princing' },
+        { path: '/', link: 'Trang chủ' },
+        { path: '/about', link: 'Về Thèm' },
+        { path: '/menu', link: 'THực đơn' },
+        { path: '/princing', link: 'Chính sách' },
         { path: '/blog', link: 'Blog' },
-        { path: '/contact', link: 'Contact' },
-        { path: '/delivery', link: 'Delivery' },
+        { path: '/contact', link: 'Liên hệ' },
     ]
 
     const utilityPages = [
-        'Start Here',
-        'Styleguide',
-        'Password Protected',
-        '404 Not Found',
-        'Licenses',
-        'Changelog',
-        'View More'
+        'Bắt đầu',
+        'Hướng dẫn mẫu',
+        'Mật khẩu được bảo vệ',
+        '404 không tìm thấy',
+        'Giấy phép',
+        'Nhật ký thay đổi',
+        'Xem thêm'
     ]
     return (
         <footer className='min-h-[778px] relative bg-zinc-700 lg:py-20' >
@@ -35,7 +29,7 @@ const Footer = () => {
                 <div>
                     <div className='py-8 '>
                         <p>
-                            Trong  nghệ mới, chúng tôi nhìn về
+                            Chúng tôi nhìn về
                         </p>
                         <p>
                             tương lai với sự chắc chắn và tự hào về
@@ -56,7 +50,7 @@ const Footer = () => {
                 <div className=' grid gap-x-8 gap-y-4 grid-cols-2'>
                     <ul className=''>
                         <li className='text-white text-base font-bold pb-12'>
-                            Pages
+                            Trang
                         </li>
                         {
                             footerPages.map(({ path, link }) =>
@@ -73,7 +67,7 @@ const Footer = () => {
                     </ul>
                     <ul>
                         <li className='text-white text-base font-bold pb-12'>
-                            Utility Pages
+                            Trang tiện ích
                         </li>
                         {
                             utilityPages.map((utilityPage, index) =>
@@ -84,26 +78,28 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div className='inline-block'>
-                    <span className='text-white text-base font-bold pb-12 inline-block'>Follow Us On Instagram</span>
+                    <span className='text-white text-base font-bold pb-12 inline-block'>
+                        Theo dõi chúng tôi trên Instagram</span>
                     <div className='grid gap-4 grid-cols-2'>
-                        <div className='max-w-[194px] rounded-xl hover:opacity-80'>
-                            <img src={img1} alt="" />
+                        <div className='max-w-[194px] max-h-[200px] rounded-xl hover:opacity-80'>
+                            <img src="https://bizweb.dktcdn.net/100/393/670/articles/lam-banh-trang-tron-can-nhung-nguyen-lieu-gi.jpg?v=1604292199063" />
                         </div>
-                        <div className='max-w-[194px] rounded-xl hover:opacity-80'>
-                            <img src={img1} alt="" />
+                        <div className='max-w-[194px] max-h-[200px] rounded-xl hover:opacity-80'>
+                            <img src="https://yummyday.vn/uploads/images/cach-lam-banh-trang-tron-chay-2.jpg" />
                         </div>
-                        <div className='max-w-[194px] rounded-xl hover:opacity-80'>
-                            <img src={img1} alt="" />
+                        <div className='max-w-[194px] max-h-[200px] rounded-xl hover:opacity-80'>
+                            <img src="https://static.hawonkoo.vn/hwks1/images/2023/08/cach-lam-banh-trang-nuong-bang-noi-chien-khong-dau-3.jpg" />
                         </div>
-                        <div className='max-w-[194px] rounded-xl hover:opacity-80'>
-                            <img src={img1} alt="" />
+                        <div className='max-w-[194px] max-h-[200px] rounded-xl hover:opacity-80'>
+                            <img src="https://photo.znews.vn/w660/Uploaded/vhuowar/2017_03_15/11193341_750308295086128_6051964005409488538_n.jpg" />
                         </div>
+
                     </div>
                 </div>
             </nav>
 
             <div>
-                <p className='text-base py-6 text-center text-gray-400 lg:pt-10'>
+                <p className='text-base pt-20  text-center text-gray-400'>
                     Copyright © 2024 Hashtag Developer. All Rights Reserved
                 </p>
             </div>

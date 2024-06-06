@@ -48,8 +48,7 @@ const Menu = () => {
                                     className="w-64 h-48 object-cover rounded-md mb-4"
                                 />
                                 <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
-                                <p className="text-gray-600 mb-4">{item.description}</p>
-                                <p className="text-lg font-bold">{item.price}</p>
+                                <p className="text-lg font-bold">{item.price.toLocaleString('vi-VN')}</p>
                             </div>
                         </Link>
                     ))}

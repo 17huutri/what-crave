@@ -24,6 +24,8 @@ import NotFound from "./components/NotFound";
 import Payment from "./components/Staff/Payment";
 import PaymentSuccess from "./components/PaymentStatus/PaymentSuccess";
 import PaymentFailure from "./components/PaymentStatus/PaymentFailure";
+import DashboardPage from "./pages/DashboardPage";
+import PaymentList from "./components/Admin/PaymentList";
 
 
 const App = () => {
@@ -84,26 +86,22 @@ const App = () => {
 
 
         </Route>
-        <Route path="/*" element={<NotFound />} />
 
 
 
         {/* Admin Layout */}
-        <Route element={<ProtectedRoute isAllowed={isLogin && role === "admin"} redirectPath="/login" />}>
 
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Navigate to="/admin/dashboard" />} />
-          </Route>
-        </Route>
-        {/* Login Route */}
         <Route
-          path="/login"
-          element={
-            <ProtectedRoute isAllowed={!isLogin} redirectPath="/">
-              <Login />
-            </ProtectedRoute>
-          }
-        />
+          path="/admin" element={<AdminLayout redirectPath="/login" isAllowed={role === "admin"} />} >
+          <Route index element={<Navigate to="/admin/dashboard" />} />
+          <Route path="/admin/dashboard" element={<DashboardPage />} />
+          <Route path="/admin/payments" element={<PaymentList />} />
+
+
+        </Route>
+
+        <Route path="/*" element={<NotFound />} />
+
       </Routes>
     </BrowserRouter>
   );
