@@ -3,6 +3,7 @@ import accountReducer from "./slices/accountSlice";
 import dishesReducer from "./slices/dishSlice";
 import orderReducer from "./slices/orderSlice";
 import paymentReducer from "./slices/paymentSlice";
+import newsReducer from "./slices/newsSlice";
 
 
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
         dishes: dishesReducer,
         orders: orderReducer,
         payment: paymentReducer,
+        news: newsReducer,
 
     },
 });

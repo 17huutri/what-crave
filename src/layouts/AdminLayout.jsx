@@ -1,14 +1,13 @@
-import React from 'react'
+import { Outlet } from 'react-router-dom';
+import SidebarAdmin from '../components/Navigation/SidebarAdmin';
 
-const AdminLayout = () => {
+export default function AdminLayout() {
     return (
-
-        <div className='py-40 bg-black text-center text-white px-4'>
-            <h2 className='text-5xl lg:text-7xl leading-snug font-bold mb-5'>Admin Dashboard</h2>
+        <div className="flex">
+            <SidebarAdmin />
+            <div className="flex-grow">
+                <Outlet />
+            </div>
         </div>
-
-
-    )
+    );
 }
-
-export default AdminLayout

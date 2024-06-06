@@ -3,7 +3,7 @@ import Banner from '../components/LandingPage/Banner'
 import TopSection from '../components/LandingPage/TopSection'
 import Words from '../components/LandingPage/Words'
 import Information from '../components/LandingPage/Information'
-import Footer from '../components/Footer/Footer'
+import TopNews from '../components/LandingPage/TopNews'
 
 const Home = () => {
     return (
@@ -12,7 +12,7 @@ const Home = () => {
             <Information />
             <TopSection />
             <Words />
-            <Footer />
+            <TopNews />
 
         </div>
     )
