@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import image1 from '../assets/landing_pages/logo3.png';
 import image2 from '../assets/landing_pages/logo2.png';
-
 
 const AboutContent = [
     {
@@ -45,7 +45,7 @@ const About = () => {
         <div className="mx-auto mt-20 px-8 pb-8 bg-[#FEEECC]">
             {AboutContent.map((item) => (
                 <div key={item.id} className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className='px-16 py-20'>
+                    <div key={item.id} className='px-16 py-20'>
                         <h1 className="font-bold font-beVn text-left mb-4 uppercase text-6xl pb-6 text-[#fe5801]">{item.title}</h1>
                         <div className="">
                             {item.detail.map((detail, idx) => (
@@ -60,8 +60,15 @@ const About = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="flex justify-center items-center">
-                        <img src={item.images[currentImageIndex]} alt={`Image ${currentImageIndex + 1}`} className="pt-20 md:pt-0 max-w-full" />
+                    <div className="justify-center items-center" key={`image-${item.id}`}>
+                        <motion.img
+                            src={item.images[currentImageIndex]}
+                            alt={`Image ${currentImageIndex + 1}`}
+                            className="pt-10 md:pt-0 max-w-full"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                        />
                     </div>
                 </div>
             ))}

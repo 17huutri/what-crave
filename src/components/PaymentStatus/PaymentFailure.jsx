@@ -35,7 +35,7 @@ const PaymentFailure = () => {
                 <div className="font-bold pb-2 text-[20px]">Thanh toán không thành công</div>
                 <div className="flex">
                     <div>Mã số đơn hàng của bạn là</div>
-                    <div className="text-green-500 font-bold pl-1">{id}</div>
+                    <div className="text-green-500 font-bold pl-1"></div>
                 </div>
                 <div className="flex">
                     <div>Bạn có thể xem chi tiết </div>
