@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { MdOutlineRestaurantMenu, MdOutlinePayments } from "react-icons/md";
-import { RiSettings4Line } from "react-icons/ri";
+import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { FaFirstOrderAlt, FaAmazonPay } from "react-icons/fa";
-import { FiFolder, FiShoppingCart, FiLogOut } from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import storageService from "../../api/storageService";
@@ -16,10 +15,6 @@ const SidebarStaff = () => {
         { name: "Menu", link: "/staff/menu", icon: MdOutlineRestaurantMenu },
         { name: "Danh sác đặt món", link: "/staff/orders", icon: FaFirstOrderAlt },
         { name: "Thanh toán", link: "/staff/payment", icon: FaAmazonPay },
-        { name: "Danh sách thanh toán", link: "/", icon: MdOutlinePayments },
-        { name: "", link: "/", icon: FiFolder },
-        { name: "", link: "/", icon: FiShoppingCart },
-        { name: "Cài đặt", link: "/", icon: RiSettings4Line },
         { name: "Đăng xuất", link: "/logout", icon: FiLogOut, isLogout: true },
     ];
     const [open, setOpen] = useState(true);

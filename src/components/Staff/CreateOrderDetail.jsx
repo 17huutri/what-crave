@@ -89,7 +89,7 @@ const CreateOrderDetail = ({ onDetailCreated }) => {
                     <p className="lg:hidden ms:block text-center mt-1 text-sm text-gray-600">{product.description}</p>
 
                     <p className="text-center mt-2 font-beVn font-semibold text-gray-700">{product.name}</p>
-                    <p className="text-center mt-2 font-beVn font-semibold text-gray-700">{product.price.toLocaleString()}đ</p>
+                    <p className="text-center mt-2 font-beVn font-semibold text-main_color_1">{product.price.toLocaleString()}đ</p>
 
 
                   </div>

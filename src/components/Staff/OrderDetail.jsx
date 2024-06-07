@@ -93,15 +93,15 @@ const OrderDetail = () => {
                 </div>
                 <div className="flex justify-between">
                     <p className="font-semibold">Tổng tiền:</p>
-                    <p>{order.Total ? order.Total.toLocaleString() : 'N/A'} đ</p>
+                    <p>{order.Total ? order.Total.toLocaleString() : '0'} đ</p>
                 </div>
                 <div className="flex justify-between">
                     <p className="font-semibold">Trạng thái:</p>
-                    <p>{order.status ?? 'N/A'}</p>
+                    <p>{getStatusText(order.status) ?? ''}</p>
                 </div>
                 <div className="flex justify-between">
                     <p className="font-semibold">Chế độ:</p>
-                    <p>{order.mode ?? 'N/A'}</p>
+                    <p>{order.mode ?? ''}</p>
                 </div>
             </div>
             <div className="py-4">
