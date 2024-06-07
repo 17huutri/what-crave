@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from 'axios';
 const PaymentSuccess = () => {
   // const {code}  = useParams();
   const currentUrl = window.location.href;
@@ -35,7 +36,7 @@ const PaymentSuccess = () => {
         <div className="font-bold pb-2 text-[20px]">Thanh toán thành công</div>
         <div className="flex">
           <div>Mã số đơn hàng của bạn là</div>
-          <div className="text-green-500 font-bold pl-1">{id}</div>
+          <div className="text-green-500 font-bold pl-1"></div>
         </div>
         <div className="flex">
           <div>Bạn có thể xem chi tiết </div>
