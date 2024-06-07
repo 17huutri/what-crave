@@ -1,8 +1,32 @@
 import React from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-const PaymentSuccess = ({ id }) => {
+const PaymentSuccess = () => {
+      // const {code}  = useParams();
+      const currentUrl = window.location.href;
+      const urlObj = new URL(currentUrl);
+      // Get the search parameters
+      const searchParams = new URLSearchParams(urlObj.search);
+      // Get a specific parameter value
+      const orderCode = searchParams.get('orderCode');
+      useEffect(() => {
+          // Function to handle the payment
+          const payPayment = async () => {
+              try {
+                  const response = await axios.put(`https://themgico_node.nguyenminhhai.us/api/payment/${orderCode}`, {
+                      paymentMethod: 'QR'
+                  });
+  
+                  console.log('Payment successful:', response.data);
+              } catch (error) {
+                  console.error('Error making payment:', error);
+              }
+          };
+  
+          // Call the payPayment function
+          payPayment();
+      }, [orderCode]);
   return (
     <div className="flex justify-center items-center h-screen bg-main_color_3">
       <div className="bg-white rounded-[10px] w-[32%] h-[32%] items-center flex flex-col space-y-1">
@@ -11,8 +35,8 @@ const PaymentSuccess = ({ id }) => {
         </div>
         <div className="font-bold pb-2 text-[20px]">Thanh toán thành công</div>
         <div className="flex">
-          <div>Mã số đơn hàng của bạn là</div>
-          <div className="text-green-500 font-bold pl-1">{id}</div>
+          <div>Mã số đơn hàng của bạn là </div>
+          <div className="text-green-500 font-bold pl-1">{orderCode}</div>
         </div>
         <div className="flex">
           <div>Bạn có thể xem chi tiết </div>

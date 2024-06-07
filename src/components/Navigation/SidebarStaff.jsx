@@ -17,8 +17,8 @@ const SidebarStaff = () => {
         { name: "Danh sác đặt món", link: "/staff/orders", icon: FaFirstOrderAlt },
         { name: "Thanh toán", link: "/staff/payment", icon: FaAmazonPay },
         { name: "Danh sách thanh toán", link: "/", icon: MdOutlinePayments },
-        { name: "", link: "/", icon: FiFolder },
-        { name: "", link: "/", icon: FiShoppingCart },
+        // { name: "Thanh toán thành công", link: "/staff/status-success-payment", icon: FiFolder },
+        // { name: "Thanh toán thất bại", link: "/staff/status-failure-payment", icon: FiShoppingCart },
         { name: "Cài đặt", link: "/", icon: RiSettings4Line },
         { name: "Đăng xuất", link: "/logout", icon: FiLogOut, isLogout: true },
     ];
