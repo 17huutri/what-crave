@@ -15,15 +15,17 @@ const BlogDetail = () => {
     };
 
     return (
-        <div className='mt-20 max-w-7xl mx-auto'>
-            <div className='font-cabin italic text-center m-10 text-xl '>
-                <h2 className='text-5xl lg:text-7xl leading-snug font-thin mb-5 font-cabin italic'>{BlogDetailData.title}</h2>
-                <div className='flex py-10'>
-                    <p className='text-right px-5'>Tác giả: {BlogDetailData.author}</p>
-                    <p>Lúc: {BlogDetailData.createDate}</p>
+        <div className='grid xl:grid-cols-4 gap-4 lg:grid-cols-3 grid-cols-2 mx-6 xl:mx-0'>
+            <div className='mt-20 xl:col-span-3 col-span-2 max-w-7xl mx-auto'>
+                <div className='font-cabin italic text-center m-10 text-xl'>
+                    <h2 className='text-5xl lg:text-7xl leading-snug font-thin mb-5 font-cabin italic'>{BlogDetailData.title}</h2>
+                    <div className='flex py-10'>
+                        <p className='text-right px-5'>Tác giả: {BlogDetailData.author}</p>
+                        <p>Lúc: {BlogDetailData.createDate}</p>
+                    </div>
+                    <img className='w-3/4 justify-self-center inline-block' src={BlogDetailData.image} alt={BlogDetailData.title} />
+                    <p className='py-10 text-justify leading-10'>{BlogDetailData.content.split('\n')}</p>
                 </div>
-                <img className='w-3/4 justify-self-center inline-block' src={BlogDetailData.image} alt={BlogDetailData.title} />
-                <p className='py-10 text-justify leading-10'>{BlogDetailData.content.split('\n')}</p>
             </div>
         </div>
     )
