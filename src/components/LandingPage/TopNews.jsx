@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNews } from '../../store/slices/newsSlice';
 import { FaArrowRight } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 
 const TopNews = () => {
     const dispatch = useDispatch();
@@ -30,12 +31,12 @@ const TopNews = () => {
                                 <div className='text-center px-4 py-8 bg-main_color_3 shadow-lg rounded-md md:w-3/4 hover:scale-95 transition-all duration-300  mx-auto absolute left-0 right-0 -bottom-12'>
                                     <h3 className="mb-3 text-neutral-700 font-bold font-inter">{newsItem.title}</h3>
                                     <div className="flex items-center justify-center gap-8">
-                                        <a
-                                            href='/'
+                                        <Link
+                                            to={`/blog/${newsItem.id}`}
                                             className='font-bold text-green-600 hover:text-neutral-700 inline-flex items-center'
                                         >
                                             Xem thêm <FaArrowRight className='ml-2' />
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

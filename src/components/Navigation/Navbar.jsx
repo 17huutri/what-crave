@@ -51,7 +51,7 @@ const Navbar = () => {
                 </ul>
                 {/* menu icons */}
                 <div className='lg:flex gap-4 items-center hidden'>
-                    <a href="/" className='hover:text-main_color_1'><FaFacebook /></a>
+                    <a href="https://www.facebook.com/profile.php?id=61557561740900" className='hover:text-main_color_1'><FaFacebook /></a>
                     <a href="/" className='hover:text-main_color_1'><FaInstagram /></a>
                     <a href="/" className='hover:text-main_color_1'><FaTiktok /></a>
                     <button onClick={openModal} className='bg-orange-500 px-6 py-2 font-medium rounded hover:bg-white
