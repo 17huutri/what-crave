@@ -10,7 +10,7 @@ const Footer = () => {
         { path: '/about', link: 'Về Thèm' },
         { path: '/menu', link: 'THực đơn' },
         { path: '/princing', link: 'Chính sách' },
-        { path: '/blog', link: 'Blog' },
+        { path: '/blogs', link: 'Blog' },
         { path: '/contact', link: 'Liên hệ' },
     ]
 

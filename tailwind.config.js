@@ -12,6 +12,8 @@ export default {
         beVn: ["Be Vietnam Pro", "sans-serif"],
 
       },
+
+
       backgroundColor: {
         background_1: "#0a1024",
         background_2: "#7743DB",

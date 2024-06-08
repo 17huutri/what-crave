@@ -26,6 +26,7 @@ import PaymentSuccess from "./components/PaymentStatus/PaymentSuccess";
 import PaymentFailure from "./components/PaymentStatus/PaymentFailure";
 import DashboardPage from "./pages/DashboardPage";
 import PaymentList from "./components/Admin/PaymentList";
+import BlogDetail from "./components/Blog/BlogDetail";
 
 
 const App = () => {
@@ -60,7 +61,9 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/menu/:id" element={<DishDetail />} />
-            <Route path="/blog" element={<Blog />} />
+            <Route path="/blogs" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogDetail />} />
+
             <Route path="/contact" element={<Contact />} />
           </Route>
         </Route>

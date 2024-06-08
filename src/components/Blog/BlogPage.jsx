@@ -1,63 +1,69 @@
-import React from 'react'
-
-
-const BlogContent = [
-    {
-        id: 1,
-        img: 'https://cdn.jsdelivr.net/gh/DangMinhNhat1509/image/image_297.png',
-        date: "Ngày 3 tháng 1 năm 2024",
-        name: "Vẻ đẹp Tây Ninh",
-    },
-    {
-        id: 2,
-        img: 'https://cdn.jsdelivr.net/gh/DangMinhNhat1509/image/image_298.png',
-        date: "Ngày 3 tháng 3 năm 2024",
-        name: "Vì sao Tây Ninh lại nổi tiếng với muối tôm"
-    },
-    {
-        id: 2,
-        img: 'https://cdn.jsdelivr.net/gh/DangMinhNhat1509/image/image_298.png',
-        date: "Ngày 3 tháng 3 năm 2024",
-        name: "Vì sao Tây Ninh lại nổi tiếng với muối tôm"
-    },
-    {
-        id: 2,
-        img: 'https://cdn.jsdelivr.net/gh/DangMinhNhat1509/image/image_298.png',
-        date: "Ngày 3 tháng 3 năm 2024",
-        name: "Vì sao Tây Ninh lại nổi tiếng với muối tôm"
-    },
-    {
-        id: 2,
-        img: 'https://cdn.jsdelivr.net/gh/DangMinhNhat1509/image/image_298.png',
-        date: "Ngày 3 tháng 3 năm 2024",
-        name: "Vì sao Tây Ninh lại nổi tiếng với muối tôm"
-    }
-]
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchNews } from '../../store/slices/newsSlice';
+import BlogCard from './BlogCard';
+import PaginationNav1 from '../PaginationNav1';
+import SidebarBlog from './SidebarBlog';
+import Skeleton from 'react-loading-skeleton';
 
 const BlogPage = () => {
-    return (
-        <div className='mt-20 max-w-7xl items-start mx-auto justify-items-center'>
-            <div className='font-cabin italic text-center m-10'>
-                <h2 className='text-5xl lg:text-7xl leading-snug font-thin mb-5 font-cabin italic'>Blog & Bài viết</h2>
-                <p>Chúng tôi coi tất cả các yếu tố thúc đẩy sự thay đổi đều cung cấp cho bạn</p>
-                <p>những thành phần bạn cần thay đổi để tạo ra điều thực sự xảy ra.</p>
+    const dispatch = useDispatch();
+    const { news, loading } = useSelector((state) => state.news);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12;
+
+    useEffect(() => {
+        dispatch(fetchNews());
+    }, [dispatch]);
+
+    if (loading) {
+        return (
+            <div>
+                <Skeleton count={12} />
             </div>
-            <div className='grid grid-cols-2 gap-4 m-w-7xl mb-20 md:grid-cols-3 lg:grid-cols-4'>
-                {BlogContent.map((item) => (
-                    <div className='h-[340px] w-[306px] bg-background_3 rounded-xl overflow-hidden shadow-md' key={item.id}>
-                        <div>
-                            <img className='h-[200px] w-[306] object-cover' src={item.img} alt="1" />
-                            <div className='m-6'>
-                                <h4 className='leading-10 opacity-80'>{item.date}</h4>
-                                <h1 className='font-bold text-lg'>{item.name}</h1>
-                            </div>
-                        </div>
-                    </div>
-                ))
-                }
+        );
+    }
+
+    const totalPages = Math.ceil((news?.length || 0) / itemsPerPage);
+
+    const getNewsForPage = (pageNumber) => {
+        const startIndex = (pageNumber - 1) * itemsPerPage;
+        const endIndex = pageNumber * itemsPerPage;
+        return news.slice(startIndex, endIndex);
+    };
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
+    return (
+        <div>
+            <div className='py-10 flex flex-col lg:flex-row gap-12'>
+                {loading ? (
+                    <Skeleton count={getNewsForPage(currentPage).length} />
+                ) : (
+                    <BlogCard blogs={getNewsForPage(currentPage)} />
+                )}
+
+                <div>
+                    {loading ? (
+                        <Skeleton count={5} />
+                    ) : (
+                        <SidebarBlog blogs={news} />
+                    )}
+                </div>
+            </div>
+            <div className="flex py-4 justify-center">
+                <PaginationNav1
+                    gotoPage={handlePageChange}
+                    canPreviousPage={currentPage > 1}
+                    canNextPage={currentPage < totalPages}
+                    pageCount={totalPages}
+                    pageIndex={currentPage - 1}
+                />
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default BlogPage;

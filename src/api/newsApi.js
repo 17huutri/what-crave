@@ -5,7 +5,10 @@ const newsApi = {
         const url = "/News/GetAllNews";
         return axiosClient.get(url);
     },
-
+    getNewsById(id) {
+        const url = `/News/GetNewsById/${id}`;
+        return axiosClient.get(url);
+    },
 
 };
 

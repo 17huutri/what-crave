@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import image1 from '../assets/landing_pages/logo3.png';
+import image1 from '../assets/landing_pages/logo1.png';
 import image2 from '../assets/landing_pages/logo2.png';
+
 
 const AboutContent = [
     {
@@ -26,6 +27,21 @@ const AboutContent = [
         ],
         images: [
             image1, image2
+        ],
+        content_img: [
+            {
+                name: "",
+                detail: "Chúng mình là Thèm Gì Cơ?"
+            },
+            {
+                name: "Đơn giản chỉ là bánh tráng?",
+                detail: "Thực ra thú vị hơn, Thèm là điểm đến lý tưởng cho những người yêu thích ăn vặt."
+            },
+            {
+                name: "Nguyên Liệu Tươi Ngon, An Toàn",
+                detail: "Chúng mình chọn lựa những nguyên liệu tươi ngon và an toàn để đảm bảo chất lượng món ăn."
+            },
+
         ]
     }
 ];
@@ -64,15 +80,26 @@ const About = () => {
                         <motion.img
                             src={item.images[currentImageIndex]}
                             alt={`Image ${currentImageIndex + 1}`}
-                            className="pt-10 md:pt-0 max-w-full"
+                            className="!ml-9 pt-10 md:pt-0 max-w-full"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.5 }}
                         />
+                        <div className="bg-white text-center font-inter flex justify-center p-4">
+                            {item.content_img.map((content, idx) => (
+                                <div key={idx} className="p-6 block border-l-4 first:border-none">
+                                    <h3 className="text-red-600 text-xl font-bold pb-4">{content.name}</h3>
+                                    <p className='text-text_color_base leading-6 text-base'>{content.detail}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
+
+
                 </div>
-            ))}
-        </div>
+            ))
+            }
+        </div >
     );
 };
 
