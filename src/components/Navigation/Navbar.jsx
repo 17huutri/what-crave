@@ -18,7 +18,7 @@ const Navbar = () => {
         { path: "/", link: "BÁNH TRÁNG" },
         { path: "/about", link: "VỀ THÈM" },
         { path: "/menu", link: "THỰC ĐƠN" },
-        { path: "/blog", link: "BLOG" },
+        { path: "/blogs", link: "BLOG" },
         { path: "/contact", link: "LIÊN HỆ" },
 
 
@@ -38,7 +38,7 @@ const Navbar = () => {
                         navItems.map(({ path, link }) => <li className='text-gray-600 font-cabin font-semibold' key={path}>
                             <NavLink className={({ isActive, isPending }) =>
                                 isActive
-                                    ? "active"
+                                    ? "active text-main_color_1"
                                     : isPending
                                         ? "pending"
                                         : ""
@@ -75,7 +75,7 @@ const Navbar = () => {
                     }
                 </ul>
             </div>
-        </header>
+        </header >
     )
 }
 export default Navbar
