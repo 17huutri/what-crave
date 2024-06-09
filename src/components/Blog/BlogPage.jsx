@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNews } from '../../store/slices/newsSlice';
+import { fetchNews, setPage } from '../../store/slices/newsSlice';
 import BlogCard from './BlogCard';
 import PaginationNav1 from '../PaginationNav1';
 import SidebarBlog from './SidebarBlog';
@@ -8,41 +8,36 @@ import Skeleton from 'react-loading-skeleton';
 
 const BlogPage = () => {
     const dispatch = useDispatch();
-    const { news, loading } = useSelector((state) => state.news);
-    const [currentPage, setCurrentPage] = useState(1);
+    const { news, loading, currentPage, totalPages } = useSelector((state) => state.news);
     const itemsPerPage = 12;
 
     useEffect(() => {
         dispatch(fetchNews());
     }, [dispatch]);
 
+    const handlePageChange = (pageIndex) => {
+        dispatch(setPage(pageIndex + 1));
+    };
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const newsForPage = news.slice(startIndex, endIndex);
+
     if (loading) {
         return (
             <div>
-                <Skeleton count={12} />
+                <Skeleton count={itemsPerPage} />
             </div>
         );
     }
-
-    const totalPages = Math.ceil((news?.length || 0) / itemsPerPage);
-
-    const getNewsForPage = (pageNumber) => {
-        const startIndex = (pageNumber - 1) * itemsPerPage;
-        const endIndex = pageNumber * itemsPerPage;
-        return news.slice(startIndex, endIndex);
-    };
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
 
     return (
         <div>
             <div className='py-10 flex flex-col lg:flex-row gap-12'>
                 {loading ? (
-                    <Skeleton count={getNewsForPage(currentPage).length} />
+                    <Skeleton count={itemsPerPage} />
                 ) : (
-                    <BlogCard blogs={getNewsForPage(currentPage)} />
+                    <BlogCard blogs={newsForPage} />
                 )}
 
                 <div>
