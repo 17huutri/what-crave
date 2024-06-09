@@ -12,7 +12,7 @@ const SidebarBlog = ({ blogs }) => {
                     {
                         popularBlogs.slice(0, 5).map(blog => <div key={blog.id} className='my-5 border-b-2 border-spacing-2 px-4'>
                             <h4 className='font-medium mb-2'>{blog.title}</h4>
-                            <Link to='/' className='text-base pb-2  hover:text-orange-500 inline-flex items-center
+                            <Link to={`/blog/${blog.id}`} className='text-base pb-2  hover:text-orange-500 inline-flex items-center
                             py-1'>Xem thêm<FaArrowRight className='mt-1 ml-2' /></Link>
                         </div>)
                     }
@@ -25,7 +25,7 @@ const SidebarBlog = ({ blogs }) => {
                     {
                         popularBlogs.slice(6, 10).map(blog => <div key={blog.id} className='my-5 border-b-2 border-spacing-2 px-4'>
                             <h4 className='font-medium mb-2'>{blog.title}</h4>
-                            <Link to='/' className='text-base pb-2  hover:text-orange-500 inline-flex items-center
+                            <Link to={`/blog/${blog.id}`} className='text-base pb-2  hover:text-orange-500 inline-flex items-center
                             py-1'>Xem thêm<FaArrowRight className='mt-1 ml-2' /></Link>
                         </div>)
                     }
