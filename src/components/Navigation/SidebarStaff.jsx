@@ -12,10 +12,10 @@ const SidebarStaff = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const menus = [
-        { name: "Menu", link: "/staff/menu", icon: MdOutlineRestaurantMenu },
-        { name: "Danh sác đặt món", link: "/staff/orders", icon: FaFirstOrderAlt },
-        { name: "Thanh toán", link: "/staff/payment", icon: FaAmazonPay },
-        { name: "Đăng xuất", link: "/logout", icon: FiLogOut, isLogout: true },
+        { name: "Menu", link: "/staff/menu", icon: MdOutlineRestaurantMenu, color: "#4CAF50" },
+        { name: "Danh sách đặt món", link: "/staff/orders", icon: FaFirstOrderAlt, color: "#2196F3" },
+        { name: "Thanh toán", link: "/staff/payment", icon: FaAmazonPay, color: "#FF5722" },
+        { name: "Đăng xuất", link: "/logout", icon: FiLogOut, color: "#F44336", isLogout: true },
     ];
     const [open, setOpen] = useState(true);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,7 +50,7 @@ const SidebarStaff = () => {
                                 onClick={handleLogout}
                                 className={` ${menu?.margin && "mt-5"} group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md cursor-pointer`}
                             >
-                                <div>{React.createElement(menu?.icon, { size: "20" })}</div>
+                                <div>{React.createElement(menu?.icon, { size: "20", color: menu.color })}</div>
                                 <h2
                                     style={{
                                         transitionDelay: `${i + 3}00ms`,
@@ -71,7 +71,7 @@ const SidebarStaff = () => {
                                 key={i}
                                 className={` ${menu?.margin && "mt-5"} group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
                             >
-                                <div>{React.createElement(menu?.icon, { size: "20" })}</div>
+                                <div>{React.createElement(menu?.icon, { size: "20", color: menu.color })}</div>
                                 <h2
                                     style={{
                                         transitionDelay: `${i + 3}00ms`,
@@ -118,7 +118,7 @@ const SidebarStaff = () => {
                                         onClick={handleLogout}
                                         className={` ${menu?.margin && "mt-5"} group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md cursor-pointer`}
                                     >
-                                        <div>{React.createElement(menu?.icon, { size: "20" })}</div>
+                                        <div>{React.createElement(menu?.icon, { size: "20", color: menu.color })}</div>
                                         <h2 className="whitespace-pre">{menu?.name}</h2>
                                     </div>
                                 ) : (
@@ -127,7 +127,7 @@ const SidebarStaff = () => {
                                         key={i}
                                         className={` ${menu?.margin && "mt-5"} group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
                                     >
-                                        <div>{React.createElement(menu?.icon, { size: "20" })}</div>
+                                        <div>{React.createElement(menu?.icon, { size: "20", color: menu.color })}</div>
                                         <h2 className="whitespace-pre">{menu?.name}</h2>
                                     </Link>
                                 )
@@ -139,4 +139,5 @@ const SidebarStaff = () => {
         </section>
     );
 };
+
 export default SidebarStaff;

@@ -10,6 +10,13 @@ const accountApi = {
     const url = "/User/change-password";
     return axiosClient.post(url, params);
   },
+  createAccountStaff(params) {
+    const url = "/User/create-account-staff";
+    return axiosClient.post(url, params);
+  },
 };
+
+
+
 
 export default accountApi;

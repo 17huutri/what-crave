@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaBars, FaHome, FaMoneyBill, FaUser } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
 import { BsNewspaper } from "react-icons/bs";
+import { IoFastFoodSharp } from "react-icons/io5";
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -46,25 +47,36 @@ const SidebarAdmin = () => {
             path: "/admin/dashboard",
             name: "Dashboard",
             icon: <FaHome />,
+            color: "#4CAF50",
         },
         {
             path: "/admin/staffs",
             name: "Nhân viên",
             icon: <FaUser />,
+            color: "#2196F3",
+        },
+        {
+            path: "/admin/products",
+            name: "Món ăn",
+            icon: <IoFastFoodSharp />,
+            color: "#FF5722",
         },
         {
             path: "/admin/blogs",
             name: "Blogs",
             icon: <BsNewspaper />,
+            color: "#FFC107",
         },
         {
             path: "/admin/payments",
             name: "Danh sách thanh toán",
             icon: <FaMoneyBill />,
+            color: "#9C27B0",
         },
         {
-            name: "Logout",
+            name: "Đăng xuất",
             icon: <BiLogIn />,
+            color: "#F44336",
             onClick: handleLogout,
         },
     ];
@@ -80,7 +92,7 @@ const SidebarAdmin = () => {
                         damping: 10,
                     },
                 }}
-                className="bg-black text-white h-screen overflow-y-auto"
+                className="bg-black text-white h-[150vh] overflow-y-auto"
             >
                 <div className="flex items-center justify-between p-3">
                     <AnimatePresence>
@@ -110,7 +122,7 @@ const SidebarAdmin = () => {
                                 className="flex justify-items-center text-white gap-10 p-2  group transition-transform transform duration-200 ease-in-out hover:border-white hover:bg-blue-700"
                                 onClick={route.onClick}
                             >
-                                <div className="w-6 h-6 ml-1">{route.icon}</div>
+                                <div className="w-6 h-6 ml-1" style={{ color: route.color }}>{route.icon}</div>
                                 <AnimatePresence>
                                     {isOpen && (
                                         <motion.div
@@ -131,7 +143,7 @@ const SidebarAdmin = () => {
                                 className="flex justify-items-center text-white gap-10 p-2  group transition-transform transform duration-200 ease-in-out hover:border-white hover:bg-blue-700"
                                 onClick={route.onClick}
                             >
-                                <div className="w-6 h-6 ml-1">{route.icon}</div>
+                                <div className="w-6 h-6 ml-1" style={{ color: route.color }}>{route.icon}</div>
                                 <AnimatePresence>
                                     {isOpen && (
                                         <motion.div
