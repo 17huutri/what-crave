@@ -22,6 +22,7 @@ import OrderList from "./components/Staff/OrderList";
 import OrderDetail from "./components/Staff/OrderDetail";
 import NotFound from "./components/NotFound";
 import Payment from "./components/Staff/Payment";
+import ChangePassword from "./components/Staff/ChangePassword";
 import PaymentSuccess from "./components/PaymentStatus/PaymentSuccess";
 import PaymentFailure from "./components/PaymentStatus/PaymentFailure";
 import DashboardPage from "./pages/DashboardPage";
@@ -82,7 +83,7 @@ const App = () => {
 
           <Route path="/staff/payment" element={<Payment />} />
 
-
+          <Route path="/staff/change-password" element={<ChangePassword />} />
 
 
 
