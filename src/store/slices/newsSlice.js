@@ -35,6 +35,17 @@ export const fetchNewsDetail = createAsyncThunk(
         }
     }
 );
+export const createNews = createAsyncThunk(
+    "news/createNews",
+    async (data) => {
+        try {
+            const response = await newsApi.createNews(data);
+            return response.data._data;
+        } catch (error) {
+            throw error;
+        }
+    }
+)
 
 const newsSlice = createSlice({
     name: "news",

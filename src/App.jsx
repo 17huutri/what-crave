@@ -27,6 +27,7 @@ import PaymentSuccess from "./components/PaymentStatus/PaymentSuccess";
 import PaymentFailure from "./components/PaymentStatus/PaymentFailure";
 import DashboardPage from "./pages/DashboardPage";
 import PaymentList from "./components/Admin/PaymentList";
+import CreateBlog from "./components/Admin/CreateBlog";
 import BlogDetail from "./components/Blog/BlogDetail";
 
 
@@ -98,6 +99,7 @@ const App = () => {
           <Route index element={<Navigate to="/admin/dashboard" />} />
           <Route path="/admin/dashboard" element={<DashboardPage />} />
           <Route path="/admin/payments" element={<PaymentList />} />
+          <Route path="/admin/blogs" element={<CreateBlog />} />
 
 
         </Route>
