@@ -29,6 +29,9 @@ import DashboardPage from "./pages/DashboardPage";
 import PaymentList from "./components/Admin/PaymentList";
 import CreateBlog from "./components/Admin/CreateBlog";
 import BlogDetail from "./components/Blog/BlogDetail";
+import StaffPage from "./components/Admin/StaffPage";
+import ProductPage from "./components/Admin/ProductPage";
+import ScrollToTop from "./components/Navigation/ScrollToTop";
 
 
 const App = () => {
@@ -55,10 +58,13 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
+
       <Routes>
         {/* Main Layout */}
         <Route element={<ProtectedRoute isAllowed={!isLogin || (role !== "staff" && role !== "admin")} redirectPath={role === "staff" ? "/staff" : "/admin"} />}>
           <Route path="/" element={<MainLayout />}>
+
             <Route index element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/menu" element={<Menu />} />
@@ -98,6 +104,9 @@ const App = () => {
           path="/admin" element={<AdminLayout redirectPath="/login" isAllowed={role === "admin"} />} >
           <Route index element={<Navigate to="/admin/dashboard" />} />
           <Route path="/admin/dashboard" element={<DashboardPage />} />
+          <Route path="/admin/staffs" element={<StaffPage />} />
+          <Route path="/admin/products" element={<ProductPage />} />
+
           <Route path="/admin/payments" element={<PaymentList />} />
           <Route path="/admin/blogs" element={<CreateBlog />} />
 

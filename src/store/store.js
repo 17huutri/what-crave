@@ -4,6 +4,7 @@ import dishesReducer from "./slices/dishSlice";
 import orderReducer from "./slices/orderSlice";
 import paymentReducer from "./slices/paymentSlice";
 import newsReducer from "./slices/newsSlice";
+import adminReducer from "./slices/adminSlice";
 
 
 const store = configureStore({
@@ -13,6 +14,8 @@ const store = configureStore({
         orders: orderReducer,
         payment: paymentReducer,
         news: newsReducer,
+        admin: adminReducer,
+
 
     },
 });
