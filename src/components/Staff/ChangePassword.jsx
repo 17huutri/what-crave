@@ -1,91 +1,89 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import accountApi from '../../api/accountApi';
-import { setIsLogin } from '../../store/slices/accountSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Form, Input, Button, Alert } from 'antd';
+import { setIsLogin, changePassword } from '../../store/slices/accountSlice';
 
 const ChangePassword = () => {
-    const [oldPassword, setOldPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [message, setMessage] = useState('');
     const [confirmMessage, setConfirmMessage] = useState('');
-    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
     const dispatch = useDispatch();
+    const loading = useSelector((state) => state.accountReducer.loading);
+    const success = useSelector((state) => state.accountReducer.success);
+    const error = useSelector((state) => state.accountReducer.error);
+    const [form] = Form.useForm();
 
-    const handleChangePassword = async (e) => {
-        e.preventDefault();
+    const handleChangePassword = (values) => {
+        const { currentPassword, newPassword, confirmNewPassword } = values;
 
-        if (newPassword !== confirmPassword) {
+        if (newPassword !== confirmNewPassword) {
             setConfirmMessage('Mật khẩu xác nhận không khớp.');
+            setErrorMessage('');
             return;
         }
 
-        try {
-            const res = await accountApi.changePassword({ oldPassword, newPassword });
-            if (res && res.data && res.data._message) {
-                setMessage(res.data._message);
-                dispatch(setIsLogin(false));
-                navigate('/login');
-            }
-        } catch (error) {
-            if (error.response && error.response.data && error.response.data._message) {
-                setMessage(error.response.data._message);
-            } else {
-                setMessage('Đã xảy ra lỗi, vui lòng thử lại sau.');
-            }
-        }
+        dispatch(changePassword({ currentPassword, newPassword, confirmNewPassword }));
+        setConfirmMessage('');
+
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-center">Đổi mật khẩu</h2>
-                {message && <div className="text-red-500 mb-4">{message}</div>}
-                <form onSubmit={handleChangePassword}>
-                    <div className="mb-4">
-                        <label htmlFor="oldPassword" className="block text-gray-700">Mật khẩu cũ</label>
-                        <input
-                            type="password"
-                            id="oldPassword"
-                            className="mt-1 p-2 w-full border rounded"
-                            value={oldPassword}
-                            onChange={(e) => setOldPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="newPassword" className="block text-gray-700">Mật khẩu mới</label>
-                        <input
-                            type="password"
-                            id="newPassword"
-                            className="mt-1 p-2 w-full border rounded"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                            required
-                            autoComplete="new-password"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="confirmPassword" className="block text-gray-700">Xác nhận mật khẩu mới</label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            className="mt-1 p-2 w-full border rounded"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                            autoComplete="new-password"
-                        />
-                        {confirmMessage && <div className="text-red-500 mt-2">{confirmMessage}</div>}
-                    </div>
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700 transition duration-300"
+                {error && <Alert message={error} type="error" showIcon className="mb-4" />}
+                {success && (
+                    <Alert message="Thay đổi mật khẩu thành công!" type="success" showIcon className="mb-4" />
+                )}
+                {confirmMessage && <Alert message={confirmMessage} type="info" showIcon className="mb-4" />}
+                <Form
+                    form={form}
+                    onFinish={handleChangePassword}
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                >
+                    <Form.Item
+                        label="Mật khẩu cũ"
+                        name="currentPassword"
+                        rules={[{ required: true, message: 'Vui lòng nhập mật khẩu cũ' }]}
                     >
-                        Đổi mật khẩu
-                    </button>
-                </form>
+                        <Input.Password />
+                    </Form.Item>
+                    <Form.Item
+                        label="Mật khẩu mới"
+                        name="newPassword"
+                        rules={[{ required: true, message: 'Vui lòng nhập mật khẩu mới' }]}
+                    >
+                        <Input.Password autoComplete="new-password" />
+                    </Form.Item>
+                    <Form.Item
+                        label="Xác nhận mật khẩu mới"
+                        name="confirmNewPassword"
+                        dependencies={['newPassword']}
+                        rules={[
+                            { required: true, message: 'Vui lòng xác nhận mật khẩu mới' },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('newPassword') === value) {
+                                        setConfirmMessage('');
+                                        setErrorMessage('');
+                                        return Promise.resolve();
+                                    }
+                                    setConfirmMessage('Mật khẩu không khớp');
+                                    setErrorMessage('');
+                                    return Promise.reject('Mật khẩu không khớp');
+                                },
+                            }),
+                        ]}
+                    >
+                        <Input.Password autoComplete="new-password" />
+                    </Form.Item>
+                    {errorMessage && <Alert message={errorMessage} type="error" showIcon className="mb-4" />}
+                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                        <Button type="primary" htmlType="submit" loading={loading}>
+                            Đổi mật khẩu
+                        </Button>
+                    </Form.Item>
+                </Form>
             </div>
         </div>
     );
