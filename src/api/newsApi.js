@@ -11,8 +11,19 @@ const newsApi = {
     },
     createNews(data) {
         const url = '/News/CreateNews';
-        return axiosClient.post(url,data);
-    }
+        return axiosClient.post(url, data);
+    },
+    deleteNews(id) {
+        const url = `/News/DeleteNews/${id}`;
+        return axiosClient.delete(url);
+    },
+
+    updateNews(data) {
+        const url = `/News/UpdateNews`;
+        return axiosClient.put(url, data);
+    },
+
+
 };
 
 export default newsApi;

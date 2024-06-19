@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Modal, Select, Table, Form, Button, Space, Popconfirm, Switch } from "antd";
+import { Input, Modal, Select, Table, Form, Button, Switch } from "antd";
 import {
     fetchCatalog,
     createProduct,
