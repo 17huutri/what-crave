@@ -27,6 +27,7 @@ import PaymentSuccess from "./components/PaymentStatus/PaymentSuccess";
 import PaymentFailure from "./components/PaymentStatus/PaymentFailure";
 import DashboardPage from "./pages/DashboardPage";
 import PaymentList from "./components/Admin/PaymentList";
+import CreateBlog from "./components/Admin/CreateBlog";
 import BlogDetail from "./components/Blog/BlogDetail";
 import StaffPage from "./components/Admin/StaffPage";
 import ProductPage from "./components/Admin/ProductPage";
@@ -105,16 +106,16 @@ const App = () => {
 
         {/* Admin Layout */}
         <Route
-          path="/admin"
-          element={<ProtectedRoute isAllowed={isLogin && role === "admin"} redirectPath="/login" />}
-        >
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Navigate to="/admin/dashboard" />} />
-            <Route path="/admin/dashboard" element={<DashboardPage />} />
-            <Route path="/admin/staffs" element={<StaffPage />} />
-            <Route path="/admin/products" element={<ProductPage />} />
-            <Route path="/admin/payments" element={<PaymentList />} />
-          </Route>
+          path="/admin" element={<AdminLayout redirectPath="/login" isAllowed={role === "admin"} />} >
+          <Route index element={<Navigate to="/admin/dashboard" />} />
+          <Route path="/admin/dashboard" element={<DashboardPage />} />
+          <Route path="/admin/staffs" element={<StaffPage />} />
+          <Route path="/admin/products" element={<ProductPage />} />
+
+          <Route path="/admin/payments" element={<PaymentList />} />
+          <Route path="/admin/blogs" element={<CreateBlog />} />
+
+
         </Route>
 
         {/* Login Route */}
