@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaBars, FaHome, FaMoneyBill, FaUser } from "react-icons/fa";
-import { BiLogIn } from "react-icons/bi";
+import { BiLogIn, BiDish } from "react-icons/bi";
 import { BsNewspaper } from "react-icons/bs";
 import { IoFastFoodSharp } from "react-icons/io5";
 
@@ -60,6 +60,12 @@ const SidebarAdmin = () => {
             name: "Món ăn",
             icon: <IoFastFoodSharp />,
             color: "#FF5722",
+        },
+        {
+            path: "/admin/categories",
+            name: "Phân loại món",
+            icon: <BiDish />,
+            color: "#F4ffff",
         },
         {
             path: "/admin/blogs",

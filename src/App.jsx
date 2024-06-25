@@ -31,6 +31,8 @@ import BlogDetail from "./components/Blog/BlogDetail";
 import StaffPage from "./components/Admin/StaffPage";
 import ProductPage from "./components/Admin/ProductPage";
 import ScrollToTop from "./components/Navigation/ScrollToTop";
+import CategoryPage from "./components/Admin/CategoryPage";
+import NewsPage from "./components/Admin/NewsPage";
 
 const App = () => {
   const { isLogin, role } = useSelector((state) => state.accountReducer);
@@ -114,6 +116,9 @@ const App = () => {
             <Route path="/admin/staffs" element={<StaffPage />} />
             <Route path="/admin/products" element={<ProductPage />} />
             <Route path="/admin/payments" element={<PaymentList />} />
+            <Route path="/admin/categories" element={<CategoryPage />} />
+            <Route path="/admin/blogs" element={<NewsPage />} />
+
           </Route>
         </Route>
 
