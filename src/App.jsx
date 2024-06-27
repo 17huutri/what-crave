@@ -33,6 +33,7 @@ import ProductPage from "./components/Admin/ProductPage";
 import ScrollToTop from "./components/Navigation/ScrollToTop";
 import CategoryPage from "./components/Admin/CategoryPage";
 import NewsPage from "./components/Admin/NewsPage";
+import PurchaseHistory from "./components/Staff/PurchaseHistory";
 
 const App = () => {
   const { isLogin, role } = useSelector((state) => state.accountReducer);
@@ -101,6 +102,7 @@ const App = () => {
             <Route path="/staff/status-success-payment" element={<PaymentSuccess />} />
             <Route path="/staff/status-failure-payment" element={<PaymentFailure />} />
             <Route path="/staff/payment" element={<Payment />} />
+            <Route path="/staff/purchase-history" element={<PurchaseHistory />} />
             <Route path="/staff/change-password" element={<ChangePassword />} />
           </Route>
         </Route>
