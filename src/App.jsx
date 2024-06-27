@@ -17,6 +17,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import Login from "./components/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MenuStaff from "./components/Staff/MenuStaff";
+import TableSelection from "./components/Staff/TableSelection";
 import DishDetail from "./components/Staff/DishDetail";
 import OrderList from "./components/Staff/OrderList";
 import OrderDetail from "./components/Staff/OrderDetail";
@@ -96,6 +97,7 @@ const App = () => {
           <Route path="/staff" element={<StaffLayout />}>
             <Route index element={<Navigate to="/staff/menu" />} />
             <Route path="/staff/menu" element={<MenuStaff />} />
+            <Route path="/staff/tables" element={<TableSelection/>}/>
             <Route path="/staff/orders" element={<OrderList />} />
             <Route path="/staff/order/:id" element={<OrderDetail />} />
             <Route path="/staff/status-success-payment" element={<PaymentSuccess />} />
