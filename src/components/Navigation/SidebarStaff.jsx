@@ -3,7 +3,7 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { FaFirstOrderAlt, FaAmazonPay } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { RiLockPasswordLine, RiHistoryFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import storageService from "../../api/storageService";
@@ -16,7 +16,9 @@ const SidebarStaff = () => {
         { name: "Menu", link: "/staff/menu", icon: MdOutlineRestaurantMenu, color: "#4CAF50" },
         { name: "Danh sách đặt món", link: "/staff/orders", icon: FaFirstOrderAlt, color: "#2196F3" },
         { name: "Thanh toán", link: "/staff/payment", icon: FaAmazonPay, color: "#FF5722" },
+        { name: "Lịch sử giao dịch", link: "/staff/purchase-history", icon: RiHistoryFill, color: "#Ffff" },
         { name: "Đổi mật khẩu", link: "/staff/change-password", icon: RiLockPasswordLine, color: "#FF5" },
+
         { name: "Đăng xuất", link: "/logout", icon: FiLogOut, color: "#F44336", isLogout: true },
     ];
     const [open, setOpen] = useState(true);
