@@ -5,6 +5,7 @@ import { fetchOrders } from '../../store/slices/orderSlice';
 import { ToastContainer, toast } from "react-toastify";
 import { FaSearch, FaTable } from 'react-icons/fa';
 import 'react-toastify/dist/ReactToastify.css';
+import { PacmanLoader } from 'react-spinners';
 
 const getStatusClass = (status) => {
     switch (status) {
@@ -74,25 +75,43 @@ const TableSelection = () => {
     }));
 
     const filteredTables = filterTables(tables, filters);
-
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex justify-center mt-48 ml-32">
+                <PacmanLoader color='#728FCE' size={70} />
+            </div>
+        );
     }
 
     if (error) {
-        return <div>Error: {error.message}</div>;
+        return (
+            <div className="flex justify-center mt-48 ml-32">
+                <PacmanLoader color='#728FCE' size={70} />
+            </div>
+        );
     }
 
     return (
-        <div className="p-4">
-            <div className="flex space-x-4 mb-4">
+        <div className="p-6 py-20">
+            <div className="flex space-x-4 mb-6">
                 <div>
-                    <label htmlFor="filterTableNumber" className="block text-sm font-medium">Bàn số:</label>
-                    <input type="number" id="filterTableNumber" placeholder="Số bàn" name="filterTableNumber" className="input-field px-4 w-24" min="1" />
+                    <label htmlFor="filterTableNumber" className="block text-sm font-medium text-gray-700">Bàn số:</label>
+                    <input
+                        type="number"
+                        id="filterTableNumber"
+                        placeholder="Số bàn"
+                        name="filterTableNumber"
+                        className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 w-24"
+                        min="1"
+                    />
                 </div>
                 <div>
-                    <label htmlFor="filterStatus" className="block text-sm font-medium">Trạng thái:</label>
-                    <select id="filterStatus" name="filterStatus" className="input-field px-4">
+                    <label htmlFor="filterStatus" className="block text-sm font-medium text-gray-700">Trạng thái:</label>
+                    <select
+                        id="filterStatus"
+                        name="filterStatus"
+                        className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    >
                         <option value="">Tất cả</option>
                         <option value="In Service">Đang phục vụ</option>
                         <option value="processing">Đang xử lý</option>
@@ -101,20 +120,25 @@ const TableSelection = () => {
                         <option value="available">Có sẵn</option>
                     </select>
                 </div>
-                <button type="button" onClick={handleSearch} className="text-black">
-                    <FaSearch />
+                <button
+                    type="button"
+                    onClick={handleSearch}
+                    className="inline-flex items-center justify-center px-2 py-1 text-sm font-medium rounded-md shadow-sm bg-white "
+                >
+                    <FaSearch className="h-4 w-4" />
                 </button>
+
             </div>
 
-            <div className="grid grid-cols-4 gap-4 p-10">
+            <div className="grid grid-cols-4 gap-6">
                 {filteredTables.map((table) => (
                     <div
                         key={table.tablenumber}
-                        className={`p-10 text-center rounded cursor-pointer border border-gray-300 ${getStatusClass(table.status)}`}
+                        className={`p-6 text-center rounded-lg cursor-pointer border border-gray-300 shadow-sm hover:shadow-md ${getStatusClass(table.status)}`}
                         onClick={() => handleTableClick(table.tablenumber, table.status)}
                     >
                         <FaTable className={`h-16 w-16 mx-auto ${getStatusClass(table.status)}`} />
-                        <div className="mt-2 text-lg">Bàn {table.tablenumber}</div>
+                        <div className="mt-4 text-lg font-semibold">Bàn {table.tablenumber}</div>
                     </div>
                 ))}
             </div>
