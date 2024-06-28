@@ -142,7 +142,7 @@ const OrderList = () => {
                             </button>
                         </div>
                     </div>
-                    <table className="min-w-full bg-neutral-100 border border-gray-300">
+                    <table className="min-w-full bg-neutral-100 border border-gray-300 text-2xl">
                         <thead>
                             <tr>
                                 <th className="py-2 px-4 border-b">{isLoading ? <Skeleton height={20} width={100} /> : "ID Đơn hàng"}</th>
