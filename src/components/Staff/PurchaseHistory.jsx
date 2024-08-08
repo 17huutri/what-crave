@@ -23,84 +23,89 @@ const PurchaseHistory = () => {
             message.error('Thanh toán thất bại');
         }
     };
+
     const renderPaymentMethod = (status) => {
-        switch (status) {
-            case 'QR':
-                return <Tag color="pink" style={{ fontWeight: 'bold' }}>QR</Tag>;
-            case 'Tiền mặt':
-                return <Tag color="green" style={{ fontWeight: 'bold' }}>Tiền mặt</Tag>;
-            case 'None':
-                return <Tag color="grey" style={{ fontWeight: 'bold' }}>Chưa thanh toán</Tag>;
-            default:
-                return <Tag color="blue" style={{ fontWeight: 'bold' }}>Không rõ</Tag>;
-        }
+        const colors = {
+            'QR': 'pink',
+            'Banking': 'green',
+            'Tiền mặt': 'blue',
+            'None': 'grey',
+        };
+        return <Tag color={colors[status] || 'yellow'} className="font-bold">{status || 'Không rõ'}</Tag>;
     };
 
-
     const renderStatus = (status) => {
-        switch (status) {
-            case '0':
-                return <Tag color="red" style={{ fontWeight: 'bold' }}>Chưa thanh toán</Tag>;
-            case '1':
-                return <Tag color="green" style={{ fontWeight: 'bold' }}>Đã thanh toán</Tag>;
-            case '2':
-                return <Tag color="grey" style={{ fontWeight: 'bold' }}>Đã bị hủy</Tag>;
-            default:
-                return <Tag color="blue" style={{ fontWeight: 'bold' }}>Không rõ</Tag>;
-        }
+        const colors = {
+            '0': 'red',
+            '1': 'green',
+            '2': 'grey',
+        };
+        const texts = {
+            '0': 'Chưa thanh toán',
+            '1': 'Đã thanh toán',
+            '2': 'Đã bị hủy',
+        };
+        return <Tag color={colors[status] || 'blue'} className="font-bold">{texts[status] || 'Không rõ'}</Tag>;
     };
 
     const columns = [
         {
-            title: 'Mã thanh toán',
+            title: <span className="font-bold">Mã thanh toán</span>,
             dataIndex: 'id',
             key: 'id',
+            render: (id) => <span className="font-semibold">{id + 1000}</span>,
         },
         {
-            title: 'Số tiền',
+            title: <span className="font-bold">Số tiền</span>,
             dataIndex: 'Amount',
             key: 'amount',
             render: (amount) => (
-                <span>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount)}</span>
+                <span className="font-semibold">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount)}</span>
             ),
         },
         {
-            title: 'Ngày thanh toán',
+            title: <span className="font-bold">Ngày thanh toán</span>,
             dataIndex: 'paymentDate',
             key: 'paymentDate',
-            render: (paymentDate) => moment(paymentDate).format('DD/MM/YYYY, HH:mm:ss'),
+            render: (paymentDate) => <span className="font-semibold">{moment(paymentDate).format('DD/MM/YYYY, HH:mm:ss')}</span>,
         },
         {
-            title: 'Số điện thoại',
+            title: <span className="font-bold">Số điện thoại</span>,
             dataIndex: 'phone',
             key: 'phone',
+            render: (text) => <span className="font-semibold">{text}</span>,
         },
         {
-            title: 'Phương thức thanh toán',
+            title: <span className="font-bold">Phương thức thanh toán</span>,
             dataIndex: 'paymentMethod',
             key: 'paymentMethod',
             render: renderPaymentMethod,
         },
         {
-            title: 'Trạng thái',
+            title: <span className="font-bold">Trạng thái</span>,
             dataIndex: 'status',
             key: 'status',
             render: renderStatus,
         },
         {
-            title: 'Hành động',
+            title: <span className="font-bold">Hành động</span>,
             key: 'action',
             render: (text, record) => (
                 record.status === '0' && (
-                    <Button onClick={() => handlePay(record.id)}>Thanh toán bằng tiền mặt</Button>
+                    <Button
+                        type="primary"
+                        onClick={() => handlePay(record.id)}
+                    >
+                        Thanh toán bằng tiền mặt
+                    </Button>
                 )
             ),
         },
     ];
 
     return (
-        <div className="container mx-auto p-4 py-36">
-            <h1 className="text-2xl font-bold mb-4">Lịch sử giao dịch</h1>
+        <div className="container mx-auto p-6 py-20 bg-white rounded-lg shadow-md">
+            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Lịch sử giao dịch</h1>
             {loading ? (
                 <div className="flex justify-center items-center h-64">
                     <Spin size="large" />
@@ -110,10 +115,8 @@ const PurchaseHistory = () => {
                     columns={columns}
                     dataSource={payment.listPayments}
                     rowKey="id"
-
                     pagination={{
                         position: ["bottomCenter"],
-
                         current: payment.currentPage,
                         total: payment.totalPages * pageSize,
                         pageSize: pageSize,
@@ -124,9 +127,10 @@ const PurchaseHistory = () => {
                             dispatch(getListPaymentAsync({ currentPage: page, perPage: newPageSize }));
                         },
                     }}
+                    bordered
                 />
             )}
-            {error && <div className="text-red-500 mt-4">{error}</div>}
+            {error && <div className="text-red-500 mt-4 text-center">{error}</div>}
         </div>
     );
 };
