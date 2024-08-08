@@ -34,26 +34,28 @@ const PaginationNav1 = ({ gotoPage, canPreviousPage, canNextPage, pageCount, pag
             <li>
                 <Button2
                     content={
-                        <div className="flex ml-1">
+                        <div className="flex ml-1 text-blue-600">
                             <FaChevronLeft size="0.6rem" />
                             <FaChevronLeft size="0.6rem" className="-translate-x-1/2" />
                         </div>
                     }
                     onClick={() => gotoPage(0)}
                     disabled={!canPreviousPage}
+                    className="text-blue-600 hover:text-blue-800"
                 />
             </li>
             {renderPageLinks()}
             <li>
                 <Button2
                     content={
-                        <div className="flex ml-1">
+                        <div className="flex ml-1 text-blue-600">
                             <FaChevronRight size="0.6rem" />
                             <FaChevronRight size="0.6rem" className="-translate-x-1/2" />
                         </div>
                     }
                     onClick={() => gotoPage(pageCount - 1)}
                     disabled={!canNextPage}
+                    className="text-blue-600 hover:text-blue-800"
                 />
             </li>
         </ul>

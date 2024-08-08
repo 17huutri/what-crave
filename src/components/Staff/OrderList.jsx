@@ -10,21 +10,6 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import PaginationNav1 from '../PaginationNav1';
 import { FaSearch } from 'react-icons/fa';
 
-const getStatusText = (status) => {
-    switch (status) {
-        case 'In Service':
-            return <span className="text-purple-500 font-semibold">Đang phục vụ</span>;
-        case 'processing':
-            return <span className="text-blue-500 font-semibold">Đang xử lý</span>;
-        case 'Done':
-            return <span className="text-green-500 font-semibold">Đã hoàn thành</span>;
-        case 'cancelled':
-            return <span className="text-red-500 font-semibold">Đã hủy</span>;
-        default:
-            return status;
-    }
-};
-
 const filterOrders = (orders, filters) => {
     let filteredOrders = orders;
 
@@ -58,6 +43,7 @@ const OrderList = () => {
             await orderAPI.initOrder(data);
             reset();
             dispatch(fetchOrders(currentPage));
+            toast.success('Đặt món thành công!');
         } catch (error) {
             console.error("Error submitting order:", error);
             if (error.response && error.response.data && error.response.data.message) {
@@ -79,113 +65,169 @@ const OrderList = () => {
     const filteredOrders = filterOrders(orders, filters);
 
     return (
-        <>
-            <div className="mt-8 py-8 px-4 md:py-12 md:px-6">
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center border border-gray-300 rounded p-6 max-w-sm mx-auto space-y-4 bg-yellow-100">
-                    <h3 className="text-xl font-semibold">
+        <div className="bg-gray-100 min-h-screen p-4 md:p-8">
+            <div className="max-w-4xl mx-auto">
+                <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded-lg p-6 mb-8">
+                    <h3 className="text-xl font-bold mb-4 text-center text-gray-800">
                         Đặt thêm món
                     </h3>
-                    <div>
-                        <label htmlFor="tablenumber" className="block text-sm font-medium">Số bàn:</label>
-                        <input type="number" {...register('tablenumber', { required: 'Số bàn là bắt buộc' })} id="tablenumber" placeholder="Số bàn" name="tablenumber" className="input-field px-4" min="1" />
-                        {errors.tablenumber && <p className="text-red-500">{errors.tablenumber.message}</p>}
-                    </div>
-                    <div>
-                        <label htmlFor="numberguest" className="block text-sm font-medium">Số khách:</label>
-                        <input type="number" {...register('numberguest', { required: 'Số khách là bắt buộc' })} id="numberguest" placeholder="Số khách" name="numberguest" className="input-field px-4" min="1" />
-                        {errors.numberguest && <p className="text-red-500">{errors.numberguest.message}</p>}
-                    </div>
-                    <div>
-                        <div className="flex items-center space-x-4">
-                            <input type="radio" id="regular" {...register('mode', { required: 'Vui lòng chọn loại đặt món' })} value="Thường" name="mode" className="mr-2" />
-                            <label htmlFor="regular">Thường</label>
-                            <input type="radio" id="buffet" {...register('mode', { required: 'Vui lòng chọn loại đặt món' })} value="Buffet" name="mode" className="mr-2" />
-                            <label htmlFor="buffet">Buffet</label>
+                    <div className="mb-4">
+                        <div>
+                            <label htmlFor="tablenumber" className="block text-sm font-medium text-gray-700 mb-1">Số bàn:</label>
+                            <input
+                                type="number"
+                                {...register('tablenumber', { required: 'Số bàn là bắt buộc' })}
+                                id="tablenumber"
+                                placeholder="Số bàn"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm max-w-[120px]"
+                                min="1"
+                                max="99"
+                                maxLength="2"
+                            />
+                            {errors.tablenumber && <p className="mt-1 text-xs text-red-600">{errors.tablenumber.message}</p>}
                         </div>
-                        {errors.mode && <p className="text-red-500">{errors.mode.message}</p>}
+                        <div>
+                            <label htmlFor="numberguest" className="block text-sm font-medium text-gray-700 mb-1">Số khách:</label>
+                            <input
+                                type="number"
+                                {...register('numberguest', { required: 'Số khách là bắt buộc' })}
+                                id="numberguest"
+                                placeholder="Số khách"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm max-w-[120px]"
+                                min="1"
+                                max="99"
+                                maxLength="2"
+                            />
+                            {errors.numberguest && <p className="mt-1 text-xs text-red-600">{errors.numberguest.message}</p>}
+                        </div>
                     </div>
-                    <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                        Đặt món
-                    </button>
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Loại đặt món:</label>
+                        <div className="flex space-x-4">
+                            <label className="inline-flex items-center">
+                                <input
+                                    type="radio"
+                                    {...register('mode', { required: 'Vui lòng chọn loại đặt món' })}
+                                    value="Thường"
+                                    className="form-radio h-4 w-4 text-blue-600"
+                                />
+                                <span className="ml-2 text-sm text-gray-700">Thường</span>
+                            </label>
+                            <label className="inline-flex items-center">
+                                <input
+                                    type="radio"
+                                    {...register('mode', { required: 'Vui lòng chọn loại đặt món' })}
+                                    value="Buffet"
+                                    className="form-radio h-4 w-4 text-blue-600"
+                                />
+                                <span className="ml-2 text-sm text-gray-700">Buffet</span>
+                            </label>
+                        </div>
+                        {errors.mode && <p className="mt-1 text-xs text-red-600">{errors.mode.message}</p>}
+                    </div>
+                    <div className="flex justify-end">
+                        <button
+                            type="submit"
+                            className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out text-sm"
+                        >
+                            Đặt món
+                        </button>
+                    </div>
                 </form>
 
-                <div className="mt-8 bg-main_color_3">
-                    <div className="flex flex-col md:flex-row justify-between items-center px-4 py-4">
-                        <h2 className="text-3xl font-semibold">
+
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                    <div className="p-6 border-b border-gray-200">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-4">
                             {isLoading ? <Skeleton height={30} width={300} /> : "Danh sách đặt món"}
                         </h2>
-                        <div className="flex space-x-4">
-                            <div>
-                                <label htmlFor="filterTable" className="block text-sm font-medium">Bàn số:</label>
-                                <input type="number" {...register('filterTable')} id="filterTable" placeholder="Số bàn" name="filterTable" className="input-field px-4 w-2/3" min="1" />
+                        <div className="flex flex-wrap gap-4 mb-4">
+                            <div className="flex-1 min-w-[200px]">
+                                <label htmlFor="filterTable" className="block text-sm font-medium text-gray-700 mb-1">Bàn số:</label>
+                                <input
+                                    type="number"
+                                    {...register('filterTable')}
+                                    id="filterTable"
+                                    placeholder="Số bàn"
+                                    className="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                    min="1"
+
+                                />
                             </div>
-                            <div>
-                                <label htmlFor="filterMode" className="block text-sm font-medium">Chế độ:</label>
-                                <select {...register('filterMode')} id="filterMode" name="filterMode" className="input-field px-4">
+                            <div className="flex-1 min-w-[200px]">
+                                <label htmlFor="filterMode" className="block text-sm font-medium text-gray-700 mb-1">Chế độ:</label>
+                                <select
+                                    {...register('filterMode')}
+                                    id="filterMode"
+                                    className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                >
                                     <option value="">Tất cả</option>
                                     <option value="Thường">Thường</option>
                                     <option value="Buffet">Buffet</option>
                                 </select>
                             </div>
-                            <div>
-                                <label htmlFor="filterStatus" className="block text-sm font-medium">Trạng thái:</label>
-                                <select {...register('filterStatus')} id="filterStatus" name="filterStatus" className="input-field px-4">
-                                    <option value="">Tất cả</option>
-                                    <option value="In Service">Đang phục vụ</option>
-                                    <option value="processing">Đang xử lý</option>
-                                    <option value="Done">Đã hoàn thành</option>
-                                    <option value="cancelled">Đã hủy</option>
-                                </select>
-                            </div>
-                            <button type="button" onClick={handleSearch} className=" text-black">
-                                <FaSearch />
+
+                        </div>
+                        <div className="flex justify-end">
+                            <button
+                                type="button"
+                                onClick={handleSearch}
+                                className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out flex items-center justify-center text-sm"
+                            >
+                                <FaSearch className="mr-2" />
+                                Tìm kiếm
                             </button>
                         </div>
                     </div>
-                    <table className="min-w-full bg-neutral-100 border border-gray-300 text-2xl">
-                        <thead>
-                            <tr>
-                                <th className="py-2 px-4 border-b">{isLoading ? <Skeleton height={20} width={100} /> : "ID Đơn hàng"}</th>
-                                <th className="py-2 px-4 border-b">{isLoading ? <Skeleton height={20} width={150} /> : "Thời gian đặt"}</th>
-                                <th className="py-2 px-4 border-b">{isLoading ? <Skeleton height={20} width={100} /> : "Số bàn"}</th>
-                                <th className="py-2 px-4 border-b">{isLoading ? <Skeleton height={20} width={100} /> : "Số khách"}</th>
-                                <th className="py-2 px-4 border-b">{isLoading ? <Skeleton height={20} width={100} /> : "Tổng tiền"}</th>
-                                <th className="py-2 px-4 border-b">{isLoading ? <Skeleton height={20} width={100} /> : "Chế độ"}</th>
-                                <th className="py-2 px-4 border-b">{isLoading ? <Skeleton height={20} width={100} /> : "Trạng thái"}</th>
-                                <th className="py-2 px-4 border-b">{isLoading ? <Skeleton height={20} width={100} /> : "Chi tiết"}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {isLoading
-                                ? [...Array(5)].map((_, index) => (
-                                    <tr key={index}>
-                                        <td className="py-2 px-4 border-b text-center"><Skeleton height={20} width={100} /></td>
-                                        <td className="py-2 px-4 border-b text-center"><Skeleton height={20} width={150} /></td>
-                                        <td className="py-2 px-4 border-b text-center"><Skeleton height={20} width={100} /></td>
-                                        <td className="py-2 px-4 border-b text-center"><Skeleton height={20} width={100} /></td>
-                                        <td className="py-2 px-4 border-b text-center"><Skeleton height={20} width={100} /></td>
-                                        <td className="py-2 px-4 border-b text-center"><Skeleton height={20} width={100} /></td>
-                                        <td className="py-2 px-4 border-b text-center"><Skeleton height={20} width={100} /></td>
-                                        <td className="py-2 px-4 border-b text-center"><Skeleton height={20} width={100} /></td>
-                                    </tr>
-                                ))
-                                : filteredOrders.map((order) => (
-                                    <tr key={order.idOrder}>
-                                        <td className="py-2 px-4 border-b text-center">{order.idOrder}</td>
-                                        <td className="py-2 px-4 border-b text-center">{new Date(order.orderdate).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}</td>
-                                        <td className="py-2 px-4 border-b text-center">{order.tablenumber}</td>
-                                        <td className="py-2 px-4 border-b text-center">{order.numberguest}</td>
-                                        <td className="py-2 px-4 border-b text-center">{order.Total.toLocaleString()} đ</td>
-                                        <td className="py-2 px-4 border-b text-center">{order.mode}</td>
-                                        <td className="py-2 px-4 border-b text-center">{getStatusText(order.status)}</td>
-                                        <td className="py-2 px-4 border-b text-center">
-                                            <Link to={`/staff/order/${order.idOrder}`} className="text-blue-500 hover:underline">Xem</Link>
-                                        </td>
-                                    </tr>
-                                ))}
-                        </tbody>
-                    </table>
-                    <div className="mt-4 flex justify-center">
+
+
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">ID Đơn hàng</th>
+                                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Thời gian đặt</th>
+                                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Số bàn</th>
+                                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Số khách</th>
+                                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Tổng tiền</th>
+                                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Chế độ</th>
+                                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                                {isLoading
+                                    ? [...Array(5)].map((_, index) => (
+                                        <tr key={index}>
+                                            <td className="px-6 py-4 whitespace-nowrap"><Skeleton height={20} width={100} /></td>
+                                            <td className="px-6 py-4 whitespace-nowrap"><Skeleton height={20} width={150} /></td>
+                                            <td className="px-6 py-4 whitespace-nowrap"><Skeleton height={20} width={100} /></td>
+                                            <td className="px-6 py-4 whitespace-nowrap"><Skeleton height={20} width={100} /></td>
+                                            <td className="px-6 py-4 whitespace-nowrap"><Skeleton height={20} width={100} /></td>
+                                            <td className="px-6 py-4 whitespace-nowrap"><Skeleton height={20} width={100} /></td>
+                                            <td className="px-6 py-4 whitespace-nowrap"><Skeleton height={20} width={100} /></td>
+                                        </tr>
+                                    ))
+                                    : filteredOrders.map((order) => {
+                                        const modeClass = order.mode === 'Buffet' ? 'bg-yellow-100' : 'bg-white-100';
+
+                                        return (
+                                            <tr key={order.idOrder} className={`hover:bg-gray-50 ${modeClass}`}>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.idOrder}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{new Date(order.orderdate).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.tablenumber}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.numberguest}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">{order.Total.toLocaleString()} đ</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">{order.mode}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                    <Link to={`/staff/order/${order.idOrder}`} className="text-blue-600 hover:text-blue-900">Xem</Link>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-center">
                         <PaginationNav1
                             gotoPage={(page) => dispatch(setCurrentPage(page + 1))}
                             canPreviousPage={currentPage > 1}
@@ -194,10 +236,11 @@ const OrderList = () => {
                             pageIndex={currentPage - 1}
                         />
                     </div>
+
                 </div>
             </div>
             <ToastContainer />
-        </>
+        </div>
     );
 };
 

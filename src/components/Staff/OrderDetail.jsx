@@ -76,13 +76,9 @@ const OrderDetail = () => {
     };
 
     return (
-        <div className="mt-8 py-8 px-4 md:py-12 md:px-6 font-beVn">
+        <div className="mt-8 py-8 px-16 md:py-12 md:px-12 font-cabin">
             <h2 className="text-3xl font-semibold mb-6">Chi tiết đơn hàng #{order.id}</h2>
-            <div className="mx-40 list-disc list-inside space-y-4">
-                <div className="flex justify-between">
-                    <p className="font-semibold">Thời gian đặt:</p>
-                    <p>{order.orderdate ? new Date(order.orderdate).toLocaleString() : 'N/A'}</p>
-                </div>
+            <div className="max-w-3xl mx-auto list-disc list-inside space-y-4">
                 <div className="flex justify-between">
                     <p className="font-semibold">Số bàn:</p>
                     <p>{order.tablenumber ?? 'N/A'}</p>
@@ -104,20 +100,19 @@ const OrderDetail = () => {
                     <p>{order.mode ?? ''}</p>
                 </div>
             </div>
-            <div className="py-4">
-                {
-                    order.status !== 'Done' && order.mode !== 'Buffet' && (
-                        <button
-                            className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded"
-                            onClick={() => setShowModal(true)}
-                        >
-                            Cập nhật chế độ
-                        </button>
-                    )
-                }
+
+            <div className="py-4 flex justify-center space-x-4">
+                {order.status !== 'Done' && order.mode !== 'Buffet' && (
+                    <button
+                        className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded"
+                        onClick={() => setShowModal(true)}
+                    >
+                        Cập nhật chế độ
+                    </button>
+                )}
                 {order.status !== 'Done' && (
                     <button
-                        className="text-white bg-green-500 hover:bg-green-600 py-2 px-4 rounded ml-4"
+                        className="text-white bg-green-500 hover:bg-green-600 py-2 px-4 rounded"
                         onClick={() => navigate('/staff/payment', { state: { orderID: id } })}
                     >
                         Tạo thanh toán
@@ -125,13 +120,13 @@ const OrderDetail = () => {
                 )}
             </div>
 
+
             <h3 className="text-2xl font-semibold mb-4">Chi tiết sản phẩm</h3>
             <table className="min-w-full bg-white border border-gray-300">
                 <thead>
                     <tr>
                         <th className="py-2 px-4 border-b">ID Sản phẩm</th>
                         <th className="py-2 px-4 border-b">Tên sản phẩm</th>
-                        <th className="py-2 px-4 border-b">Thời gian đặt</th>
                         <th className="py-2 px-4 border-b">Số lượng</th>
                         <th className="py-2 px-4 border-b">Giá</th>
                         <th className="py-2 px-4 border-b">Trạng thái</th>
@@ -143,11 +138,9 @@ const OrderDetail = () => {
                             <tr key={detail.productID}>
                                 <td className="py-2 px-4 border-b">{detail.productID}</td>
                                 <td className="py-2 px-4 border-b">{detail.productName}</td>
-                                <td className="py-2 px-4 border-b text-center">{new Date(detail.orderTime).toLocaleString()}</td>
                                 <td className="py-2 px-4 border-b text-center">{detail.quantity}</td>
                                 <td className="py-2 px-4 border-b text-right">{detail.price.toLocaleString()} đ</td>
                                 <td className="py-2 px-4 border-b text-center"> {getStatusText(detail.status)}</td>
-
                             </tr>
                         ) : null
                     ))}
